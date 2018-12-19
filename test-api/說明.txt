@@ -1,0 +1,37 @@
+﻿環境架設
+
+1. 下載Anaconda
+
+Create VirtualEnv
+
+1. conda create -n test python=3.6
+
+2. activate test
+
+3. 進入專案資料夾(test-api)
+
+4. pip install -r requirements.txt
+
+Create DB Model (將我們寫好的model.py的 DB schema 寫入資料庫)
+
+1. python manage.py db init
+
+2. python manage.py db migrate
+
+3. python manage.py db upgrade
+
+Run Server & Test
+
+"記得兩個終端機都要進入virtualenv，也就是要執行 activate test"
+
+1. 開啟一個終端機執行 python manage.py runserver (SERVER開啟，Ctrl + C 能將SERVER關閉)
+
+2. 開啟另一個終端機執行測試(test_get, test_post...)
+
+
+git branch
+步驟 :
+1. git add .
+2. git commit -m "your commit"
+3. git checkout -b your_branch_name
+4. git push orgiin your_branch_name
