@@ -6,14 +6,14 @@ res = requests.get("http://127.0.0.1:5000/CV")  ## 全部
 print (res.text)
 
 
-res = requests.get("http://127.0.0.1:5000/CV/3") ## id = 2
+res = requests.get("http://127.0.0.1:5000/CV/1") ## id = 2
 
 print (res.text)
 
 params = {
-	"salary_top" : 22000,
+	"salary_top" : 600,
 	"salary_bottom" : 0,
-	"skill" : ["python"]
+	"skill" : []
 }
 
 """

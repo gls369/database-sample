@@ -192,6 +192,7 @@ def update_cv(id):
 		CV.Skill = Skill
 		submitdate = datetime.now()
 		CV.SubmitDate = submitdate
+		'''
 		WEXP = wExp.query.filter_by(cv_ID = id).first()
 		wPlace = req['wPlace']#request.form.get("wPlace")
 		WEXP.wpl = pickle.dumps(wPlace)
@@ -203,29 +204,32 @@ def update_cv(id):
 		wEndTime = req['wEndTime']#request.form.get('wEndTime')
 		e_time = wEndTime.split("-")
 		WEXP.wEndTime = date(int(e_time[0]), int(e_time[1]), int(e_time[2]))
-		le = leaningExp.query.filter_by(id = id).first()
-		degree = res['degree']#request.form.get('degree')
+		le = learningExp.query.filter_by(id = id).first()
+		degree = req['degree']#request.form.get('degree')
 		le.deg = pickle.dumps(degree)
-		school = res['school']#request.form.get('school')
+		school = req['school']#request.form.get('school')
 		le.sc = pickle.dumps(school)
-		department = res['department']#request.form.get('department')
+		department = req['department']#request.form.get('department')
 		le.dep = pickle.dumps(department)
+		'''
+		wpl = req['wPlace']
+		wExp.query.get(id).wPlace = pickle.dumps(wpl)
+		wpo = req['wPos']
+		wExp.query.get(id).wPos = pickle.dumps(wpo)
+		wStartTime = req['wStartTime']
+		s_time = wStartTime.split("-")
+		wExp.query.get(id).wStartTime = date(int(s_time[0]), int(s_time[1]), int(s_time[2]))
+		wEndTime = req['wEndTime']
+		e_time = wEndTime.split("-")
+		wExp.query.get(id).wEndTime = date(int(e_time[0]), int(e_time[1]), int(e_time[2]))
+		deg = req['degree']
+		learningExp.query.get(id).degree = pickle.dumps(deg)
+		sc = req['school']
+		learningExp.query.get(id).school = pickle.dumps(sc)
+		dep = req['department']#request.form.get('department')
+		learningExp.query.get(id).department = pickle.dumps(dep)
 		db.session.commit()
-		res = {
-			"id":id,
-			"SalaryExpection" : se,
-			"Department" : dep,
-			"Skill" : Skill,
-			"SubmitDate" : submitdate,
-			"wPlace" : WEXP.wpl,
-			"wPos" : WEXP.wpo,
-			"wStartTime" : WEXP.wStartTime,
-			"wEndTime" : WEXP.wEndTime,
-			"degree" : le.deg,
-			"school" : le.sc,
-			"department" : le.dep
-		}
-		return jsonify({"status": "success", "response": res})
+		return jsonify({"status": "success"})
 
 		flash("Your CV has been updated!")
 		
@@ -308,8 +312,7 @@ def update_boss_request(id):
 @app.route("/CV/<int:id>", methods=["DELETE"])
 def delete_employee_cv(id):
 	try:
-		id = request.form["id"]
-		delete_id = CV.query.filter_by(id=id).first()
+		delete_id = cv.query.filter_by(id=id).first()
 		db.session.delete(delete_id)
 		db.session.commit()
 		return jsonify({"status": "success"})
